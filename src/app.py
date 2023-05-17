@@ -59,6 +59,19 @@ def get_person(person_id):
     
     return jsonify(person.serialize()), 200
 
+@app.route('/planet',methods=['GET'])
+def get_planets():
+    planet = Planets.query.all()
+    all_planet = list(map(lambda x:x.serialize(),planet))
+
+    return jsonify(all_planet), 200
+
+@app.route('/planet/<int:planet_id>',methods=['GET'])
+def get_planet(planet_id):
+    planet = Planets.query.get(planet_id)
+    
+    return jsonify(planet.serialize()), 200
+
 
 
 

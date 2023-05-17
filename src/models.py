@@ -28,11 +28,38 @@ class Characters(db.Model):
     height = db.Column(db.String(250),nullable=False)
     eye_color = db.Column(db.String(250), nullable=False)
 
+    def __repr__(self):
+        return '<Characters %r>' % self.name
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "age": self.age,
+            "height": self.height,
+            "eye_color": self.eye_color
+        
+            # do not serialize the password, its a security breach
+        }
+
 class Planets(db.Model):
     __tablename__='planets'
     id = db.Column(db.Integer,primary_key=True)
     name =  db.Column(db.String(60),nullable=False) 
-    description = db.Column(db.String(250), nullable=False)  
+    description = db.Column(db.String(250), nullable=False) 
+
+    def __repr__(self):
+        return '<Planets %r>' % self.name
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description
+        
+            # do not serialize the password, its a security breach
+        }
+ 
 
 class Favorites(db.Model):
     __tablename__='favorites'
@@ -40,5 +67,15 @@ class Favorites(db.Model):
     favorites_id = db.Column(db.Integer,db.ForeignKey('user.id'), nullable = False)
     favorites_character_id = db.Column(db.Integer, db.ForeignKey('characters.id')) 
     favorites_planet_id = db.Column(db.Integer, db.ForeignKey('planets.id'))
+    
+    def __repr__(self):
+        return '<Favotites %r>' % self.name
 
+    def serialize(self):
+        return {
+            "id": self.id,
+           
+        
+            # do not serialize the password, its a security breach
+        }
     
